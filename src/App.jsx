@@ -16,7 +16,7 @@ function App() {
 
 	return (
 		<>
-			<div>
+			<div className="flex py-2 px-2">
 				<PageHeader />
 				<div className="flex w-full gap-5 justify-center my-3">
 					<Button text={"Create"} onClick={handleScreen} />
@@ -29,6 +29,7 @@ function App() {
 			<Canvas>
 				{contentType == "create" && <CreateScreen />}
 				{contentType == "read" && <ReadScreen />}
+				{/* add update and deleting screens */}
 			</Canvas>
 		</>
 	);
