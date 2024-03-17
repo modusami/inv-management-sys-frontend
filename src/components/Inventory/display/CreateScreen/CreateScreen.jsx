@@ -11,7 +11,7 @@ const CreateScreen = () => {
 		price: "",
 	});
 
-	const [message, setMessage] = useState("");
+	const [message, setMessage] = useState("pending...");
 
 	const handleChange = (e) => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -41,10 +41,11 @@ const CreateScreen = () => {
 			})
 			.then((data) => {
 				console.log(data);
+				setMessage("success");
 			})
 			.catch((err) => {
 				console.log("Error: ", err);
-				setMessage(err.message);
+				setMessage("failed");
 			});
 	};
 
@@ -111,7 +112,23 @@ const CreateScreen = () => {
 				>
 					Create Item
 				</button>
-				<p>{message}</p>
+				<p className="my-3 font-bold">
+					Status of creation:{" "}
+					<span
+						className={
+							"mx-2 " +
+							(message === "success"
+								? "text-green-500"
+								: message === "pending..."
+								? "text-slate-400"
+								: message === "failed"
+								? "text-red-500"
+								: "")
+						}
+					>
+						{message}
+					</span>
+				</p>
 			</form>
 		</ScreenContainer>
 	);
