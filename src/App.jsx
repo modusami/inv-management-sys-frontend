@@ -1,6 +1,8 @@
 import { useState } from "react";
 import Canvas from "./components/Structures/Canvas";
 import "./App.css";
+import Button from "./components/Inventory/buttons/Button";
+import ReadScreen from "./components/Inventory/display/ReadScreen/ReadScreen";
 
 function App() {
 	const [contentType, setContentType] = useState("home");
@@ -8,17 +10,14 @@ function App() {
 	return (
 		<>
 			<Canvas>
-				<h1>
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto placeat neque
-					eligendi deleniti ullam quasi iure nisi provident necessitatibus? Magnam quasi,
-					quisquam sequi maiores qui quidem dolores atque perspiciatis doloremque quae
-					quis laudantium corporis mollitia id saepe repudiandae accusamus explicabo
-					voluptatum deleniti. Enim doloremque in fugit velit officia consequuntur,
-					assumenda provident pariatur ab tempora laboriosam minus non commodi veritatis?
-					Labore perferendis fuga tempore molestiae vero excepturi, mollitia illum velit
-					aliquam eius iure? Sunt, veritatis similique. Enim numquam assumenda rerum
-					distinctio!
-				</h1>
+				<div className="flex w-full gap-5 justify-center my-3">
+					<Button text={"Create"} />
+					<Button text={"Read"} />
+					<Button text={"Update"} />
+					<Button text={"Delete"} />
+				</div>
+				<div className="mt-6 w-full h-5"></div>
+				<ReadScreen />
 			</Canvas>
 		</>
 	);
