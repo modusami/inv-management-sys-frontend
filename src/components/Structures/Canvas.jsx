@@ -1,5 +1,4 @@
 import logo from "/logo.jpg";
-import PageHeader from "../Headers/PageHeader";
 
 const Canvas = ({ children, title }) => {
 	return (
