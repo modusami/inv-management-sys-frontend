@@ -50,7 +50,6 @@ const CreateScreen = () => {
 
 	return (
 		<ScreenContainer>
-			<h2 className="text-lg font-semibold mb-4">Create Inventory Item</h2>
 			<form onSubmit={handleSubmit}>
 				<div className="mb-4">
 					<label htmlFor="name" className="block text-sm font-medium text-gray-700">
