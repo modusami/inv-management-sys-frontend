@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Button from "../../buttons/Button";
 import SearchBar from "../../inputs/SearchBar";
+import ScreenContainer from "../ScreenContainer";
 const DOMAIN_HOST = import.meta.env.VITE_DOMAIN_HOST;
 
 const ReadScreen = () => {
@@ -31,7 +32,7 @@ const ReadScreen = () => {
 	};
 
 	return (
-		<div>
+		<ScreenContainer>
 			<SearchBar />
 			<div className="flex m-1 bg-slate-100">
 				<Button text={"All Items"} onClick={handleGetInventory} />
@@ -41,7 +42,7 @@ const ReadScreen = () => {
 			<pre className="overflow-x-auto whitespace-pre-wrap rounded-lg p-2.5 bg-slate-100">
 				{info}
 			</pre>
-		</div>
+		</ScreenContainer>
 	);
 };
 

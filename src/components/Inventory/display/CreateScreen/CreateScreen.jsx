@@ -1,4 +1,5 @@
 import { useState } from "react";
+import ScreenContainer from "../ScreenContainer";
 
 const DOMAIN_HOST = import.meta.env.VITE_DOMAIN_HOST;
 
@@ -48,7 +49,7 @@ const CreateScreen = () => {
 	};
 
 	return (
-		<div className="max-w-md mx-auto mt-8 p-6 border rounded-lg shadow-md">
+		<ScreenContainer>
 			<h2 className="text-lg font-semibold mb-4">Create Inventory Item</h2>
 			<form onSubmit={handleSubmit}>
 				<div className="mb-4">
@@ -113,7 +114,7 @@ const CreateScreen = () => {
 				</button>
 				<p>{message}</p>
 			</form>
-		</div>
+		</ScreenContainer>
 	);
 };
 
