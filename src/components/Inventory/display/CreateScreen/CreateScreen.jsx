@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+const DOMAIN_HOST = import.meta.env.VITE_DOMAIN_HOST;
+
 const CreateScreen = () => {
 	const [formData, setFormData] = useState({
 		name: "",
@@ -8,14 +10,41 @@ const CreateScreen = () => {
 		price: "",
 	});
 
+	const [message, setMessage] = useState("");
+
 	const handleChange = (e) => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	};
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		// Add logic to submit the form data
-		console.log(formData);
+		makeFetchRequest();
+	};
+
+	const makeFetchRequest = () => {
+		const currentData = formData;
+		currentData.price = parseFloat(currentData.price);
+		fetch(`${DOMAIN_HOST}/api/inventory`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(currentData),
+		})
+			.then((response) => {
+				if (response.ok) {
+					return response.json();
+				} else {
+					throw new Error("Failed to add item");
+				}
+			})
+			.then((data) => {
+				console.log(data);
+			})
+			.catch((err) => {
+				console.log("Error: ", err);
+				setMessage(err.message);
+			});
 	};
 
 	return (
@@ -82,6 +111,7 @@ const CreateScreen = () => {
 				>
 					Create Item
 				</button>
+				<p>{message}</p>
 			</form>
 		</div>
 	);
