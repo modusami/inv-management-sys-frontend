@@ -8,9 +8,9 @@
 
 -   [] a page representing a form to create an inventory item
 
-    -   [] a form with a name, category, description, and price section
-    -   [] a button to create an inventory item
-    -   [] a message indicating an inventory has been created
+    -   [✅] a form with a name, category, description, and price section
+    -   [✅] a button to create an inventory item
+    -   [✅] a message indicating an inventory has been created
     -   [] a gif (from giphy) representing the name of the product you will create
 
 -   [] a page representing reading (displaying) the inventory items
