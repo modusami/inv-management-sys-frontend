@@ -3,7 +3,8 @@ import Button from "../../buttons/Button";
 import SearchBar from "../../inputs/SearchBar";
 import ScreenContainer from "../ScreenContainer";
 import DropdownButton from "../../buttons/DropdownButton";
-import ProductList from "../../product/ProductList";
+import Product from "../../product/Product";
+
 const DOMAIN_HOST = import.meta.env.VITE_DOMAIN_HOST;
 
 const ReadScreen = () => {
@@ -17,7 +18,8 @@ const ReadScreen = () => {
 		setSearchInput(e.target.value);
 	};
 
-	const [info, setInfo] = useState();
+	const [inventory, setInventory] = useState([]);
+	const [errorMessage, setErrorMessage] = useState("");
 
 	// ------------- getting an inventory item by category -------
 
@@ -40,15 +42,13 @@ const ReadScreen = () => {
 				}
 			})
 			.then((data) => {
-				//console.log(inventory);
-				//console.log(data);
 				const inventory = Object.entries(data);
-				//console.log(inventory[0][1]);
-				setInfo(inventory);
+				const inventoryObject = inventory.map((value) => value[1]);
+				console.log(inventoryObject);
+				setInventory(inventoryObject);
 			})
 			.catch((error) => {
-				console.error("Error:", error);
-				setInfo(`Error: ${error.message}`);
+				setErrorMessage("Error connecting to backend");
 			});
 	};
 
@@ -70,8 +70,16 @@ const ReadScreen = () => {
 			</div>
 			<p className="text-slate-400">Display Area: </p>
 			<pre className="overflow-x-auto whitespace-pre-wrap rounded-lg p-2.5 bg-slate-100">
-				<ProductList data={info} />
+				{inventory ? "testing" : "No Products"}
+				{inventory.map((value) => (
+					<div key={value.id.id}>
+						<Product inventoryData={value} />
+					</div>
+				))}
 			</pre>
+			<div className="my-3 mx-2">
+				<p className="text-red-500">{errorMessage}</p>
+			</div>
 		</ScreenContainer>
 	);
 };
