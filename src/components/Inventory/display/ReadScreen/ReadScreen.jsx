@@ -36,10 +36,13 @@ const ReadScreen = () => {
 
 	return (
 		<ScreenContainer>
-			<SearchBar />
+			<div className="flex m-1">
+				<SearchBar />
+				<DropdownButton id={"type"} name={"type"} options={options} />
+			</div>
+
 			<div className="flex m-1 bg-slate-100">
 				<Button text={"All Items"} onClick={handleGetInventory} />
-				<DropdownButton id={"type"} name={"type"} options={options} />
 			</div>
 			<p className="text-slate-400">Display Area: </p>
 			<pre className="overflow-x-auto whitespace-pre-wrap rounded-lg p-2.5 bg-slate-100">
