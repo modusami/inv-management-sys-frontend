@@ -2,9 +2,12 @@ import { useState } from "react";
 import Button from "../../buttons/Button";
 import SearchBar from "../../inputs/SearchBar";
 import ScreenContainer from "../ScreenContainer";
+import DropdownButton from "../../buttons/DropdownButton";
 const DOMAIN_HOST = import.meta.env.VITE_DOMAIN_HOST;
 
 const ReadScreen = () => {
+	const [options, setOptions] = useState(["id", "name", "category"]);
+
 	const [info, setInfo] = useState("");
 
 	const handleGetInventory = (e) => {
@@ -36,7 +39,7 @@ const ReadScreen = () => {
 			<SearchBar />
 			<div className="flex m-1 bg-slate-100">
 				<Button text={"All Items"} onClick={handleGetInventory} />
-				<Button text={"Single Item"} />
+				<DropdownButton id={"type"} name={"type"} options={options} />
 			</div>
 			<p className="text-slate-400">Display Area: </p>
 			<pre className="overflow-x-auto whitespace-pre-wrap rounded-lg p-2.5 bg-slate-100">
