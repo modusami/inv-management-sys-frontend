@@ -1,6 +1,6 @@
 const DropdownButton = ({ id, name, options }) => {
 	return (
-		<div className="flex flex-1 justify-center">
+		<div className="flex justify-center">
 			<select name={name} id={id} className="w-full">
 				{options.map((value, key) => {
 					return (
