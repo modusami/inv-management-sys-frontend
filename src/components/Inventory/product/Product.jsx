@@ -11,11 +11,11 @@ const Product = ({ inventoryData }) => {
 	return (
 		<div>
 			{inventoryData && inventoryData.id && inventoryData.product && (
-				<div
-					className="bg-white p-3 rounded-lg m-5 cursor-pointer active:scale-95 hover:scale-105"
-					onClick={handleShowDetails}
-				>
-					<div className="">
+				<div className="bg-white p-3 rounded-lg m-5 w=full">
+					<div
+						onClick={handleShowDetails}
+						className="cursor-pointer active:scale-95 hover:scale-105 w=full"
+					>
 						<h3 className="font-bold">ID: {inventoryData.id.id}</h3>
 						<h3 className="font-bold">Product Name: {inventoryData.product.name}</h3>
 					</div>

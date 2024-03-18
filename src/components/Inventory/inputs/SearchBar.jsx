@@ -1,4 +1,11 @@
-const SearchBar = ({ onChange, searchInput }) => {
+const SearchBar = ({ onChange, searchInput, handleSearch }) => {
+	const handleEnterKeyDown = (event) => {
+		if (event.keyCode == 13) {
+			// enter button
+			handleSearch();
+		}
+	};
+
 	return (
 		<div className="flex flex-1 items-center border border-gray-300 rounded-lg p-2">
 			<svg
@@ -16,9 +23,10 @@ const SearchBar = ({ onChange, searchInput }) => {
 			<input
 				type="text"
 				placeholder="Search..."
-				className="outline-none bg-transparent"
+				className="outline-none bg-transparent w-full"
 				onChange={onChange}
 				value={searchInput}
+				onKeyDown={handleEnterKeyDown}
 			/>
 		</div>
 	);

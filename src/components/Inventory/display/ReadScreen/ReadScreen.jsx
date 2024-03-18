@@ -9,8 +9,9 @@ const DOMAIN_HOST = import.meta.env.VITE_DOMAIN_HOST;
 
 const ReadScreen = () => {
 	// for the dropdown or select
-	const [selectedValue, setSelectedValue] = useState("");
+
 	const options = ["id", "name", "category"];
+	const [selectedValue, setSelectedValue] = useState(options[0]);
 
 	const [searchInput, setSearchInput] = useState("");
 
@@ -21,7 +22,87 @@ const ReadScreen = () => {
 	const [inventory, setInventory] = useState([]);
 	const [errorMessage, setErrorMessage] = useState("");
 
-	// ------------- getting an inventory item by category -------
+	const handleSearch = () => {
+		if (searchInput === "") {
+			return;
+		}
+		switch (selectedValue) {
+			case "id":
+				{
+					handleIdSearch();
+				}
+				break;
+			case "category":
+				{
+					handleCategorySearch();
+				}
+				break;
+			case "name": {
+				handleNameSearch();
+			}
+		}
+	};
+
+	const handleIdSearch = () => {
+		fetch(`${DOMAIN_HOST}/api/inventory/${searchInput}`)
+			.then((response) => {
+				if (response.ok) {
+					return response.json();
+				} else {
+					setErrorMessage(`Failed to get product with id: ${searchInput}`);
+				}
+			})
+			.then((data) => {
+				if (data === undefined || data === null) {
+					setErrorMessage(`Failed to get product with id: ${searchInput}`);
+					return;
+				}
+				const arr = [];
+				arr.push(data);
+
+				setInventory(arr);
+			})
+			.catch((err) => {
+				console.log(err);
+				setErrorMessage(err);
+			});
+	};
+
+	const handleNameSearch = () => {
+		fetch(`${DOMAIN_HOST}/api/inventory/name/${searchInput}`)
+			.then((response) => {
+				if (response.ok) {
+					return response.json();
+				} else {
+					setErrorMessage(`Failed to get product with name: ${searchInput}`);
+				}
+			})
+			.then((data) => {
+				setInventory(data);
+				setErrorMessage("");
+			})
+			.catch((err) => {
+				setErrorMessage(`Failed to get product with name: ${searchInput}`);
+			});
+	};
+
+	const handleCategorySearch = () => {
+		fetch(`${DOMAIN_HOST}/api/inventory/category/${searchInput}`)
+			.then((response) => {
+				if (response.ok) {
+					return response.json();
+				} else {
+					setErrorMessage(`Failed to get product with category: ${searchInput}`);
+				}
+			})
+			.then((data) => {
+				setInventory(data);
+				setErrorMessage("");
+			})
+			.catch((err) => {
+				setErrorMessage(`Failed to get product with category: ${searchInput}`);
+			});
+	};
 
 	// -------------- getting the inventory items ------------
 	const handleGetInventory = (e) => {
@@ -55,7 +136,11 @@ const ReadScreen = () => {
 	return (
 		<ScreenContainer>
 			<div className="flex m-1">
-				<SearchBar onChange={handleSearchInput} value={searchInput} />
+				<SearchBar
+					onChange={handleSearchInput}
+					value={searchInput}
+					handleSearch={handleSearch}
+				/>
 				<DropdownButton
 					id={"type"}
 					name={"type"}
@@ -70,12 +155,12 @@ const ReadScreen = () => {
 			</div>
 			<p className="text-slate-400">Display Area: </p>
 			<pre className="overflow-x-auto whitespace-pre-wrap rounded-lg p-2.5 bg-slate-100">
-				{inventory ? "testing" : "No Products"}
-				{inventory.map((value) => (
-					<div key={value.id.id}>
-						<Product inventoryData={value} />
-					</div>
-				))}
+				{inventory &&
+					inventory.map((value) => (
+						<div key={value.id.id}>
+							<Product inventoryData={value} />
+						</div>
+					))}
 			</pre>
 			<div className="my-3 mx-2">
 				<p className="text-red-500">{errorMessage}</p>
