@@ -3,19 +3,34 @@ import Button from "../../buttons/Button";
 import SearchBar from "../../inputs/SearchBar";
 import ScreenContainer from "../ScreenContainer";
 import DropdownButton from "../../buttons/DropdownButton";
+import ProductList from "../../product/ProductList";
 const DOMAIN_HOST = import.meta.env.VITE_DOMAIN_HOST;
 
 const ReadScreen = () => {
-	const [options, setOptions] = useState(["id", "name", "category"]);
+	// for the dropdown or select
+	const [selectedValue, setSelectedValue] = useState("");
+	const options = ["id", "name", "category"];
 
-	const [info, setInfo] = useState("");
+	const [searchInput, setSearchInput] = useState("");
 
-	const handleGetInventory = (e) => {
-		e.preventDefault();
-		makeFetchRequest();
+	const handleSearchInput = (e) => {
+		setSearchInput(e.target.value);
 	};
 
-	const makeFetchRequest = () => {
+	const [info, setInfo] = useState();
+
+	// ------------- getting an inventory item by category -------
+
+	// -------------- getting the inventory items ------------
+	const handleGetInventory = (e) => {
+		e.preventDefault();
+		getAllInventoryItems();
+	};
+
+	/**
+	 * Responsible for getting all the inventory items
+	 */
+	const getAllInventoryItems = () => {
 		fetch(`${DOMAIN_HOST}/api/inventory`)
 			.then((response) => {
 				if (response.ok) {
@@ -24,9 +39,12 @@ const ReadScreen = () => {
 					throw new Error("Failed to retrieve inventory");
 				}
 			})
-			.then((inventory) => {
-				console.log(inventory);
-				setInfo(JSON.stringify(inventory, null, 2));
+			.then((data) => {
+				//console.log(inventory);
+				//console.log(data);
+				const inventory = Object.entries(data);
+				//console.log(inventory[0][1]);
+				setInfo(inventory);
 			})
 			.catch((error) => {
 				console.error("Error:", error);
@@ -37,8 +55,14 @@ const ReadScreen = () => {
 	return (
 		<ScreenContainer>
 			<div className="flex m-1">
-				<SearchBar />
-				<DropdownButton id={"type"} name={"type"} options={options} />
+				<SearchBar onChange={handleSearchInput} value={searchInput} />
+				<DropdownButton
+					id={"type"}
+					name={"type"}
+					options={options}
+					selectedValue={selectedValue}
+					setSelectedValue={setSelectedValue}
+				/>
 			</div>
 
 			<div className="flex m-1 bg-slate-100">
@@ -46,7 +70,7 @@ const ReadScreen = () => {
 			</div>
 			<p className="text-slate-400">Display Area: </p>
 			<pre className="overflow-x-auto whitespace-pre-wrap rounded-lg p-2.5 bg-slate-100">
-				{info}
+				<ProductList data={info} />
 			</pre>
 		</ScreenContainer>
 	);

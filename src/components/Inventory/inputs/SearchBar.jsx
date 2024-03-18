@@ -1,4 +1,4 @@
-const SearchBar = ({ onChange }) => {
+const SearchBar = ({ onChange, searchInput }) => {
 	return (
 		<div className="flex flex-1 items-center border border-gray-300 rounded-lg p-2">
 			<svg
@@ -18,6 +18,7 @@ const SearchBar = ({ onChange }) => {
 				placeholder="Search..."
 				className="outline-none bg-transparent"
 				onChange={onChange}
+				value={searchInput}
 			/>
 		</div>
 	);
