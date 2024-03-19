@@ -31,6 +31,9 @@ function App() {
 				{contentType == "create" && <CreateScreen />}
 				{contentType == "read" && <ReadScreen />}
 				{contentType == "update" && <UpdateScreen />}
+				{contentType == "delete" && (
+					<h1 className="text-center font-bold text-lg">Coming Soon</h1>
+				)}
 			</Canvas>
 		</>
 	);
