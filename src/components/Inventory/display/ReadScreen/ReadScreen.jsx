@@ -1,9 +1,9 @@
 import { useState } from "react";
 import Button from "../../buttons/Button";
-import SearchBar from "../../inputs/SearchBar";
 import ScreenContainer from "../ScreenContainer";
 import DropdownButton from "../../buttons/DropdownButton";
 import Product from "../../product/Product";
+import SearchScreen from "../SearchScreen/SearchScreen";
 
 const DOMAIN_HOST = import.meta.env.VITE_DOMAIN_HOST;
 
@@ -11,105 +11,8 @@ const ReadScreen = () => {
 	const options = ["id", "name", "category"];
 	const [selectedValue, setSelectedValue] = useState(options[0]);
 
-	const [searchInput, setSearchInput] = useState("");
-
-	const handleSearchInput = (e) => {
-		setSearchInput(e.target.value);
-	};
-
 	const [inventory, setInventory] = useState([]);
 	const [errorMessage, setErrorMessage] = useState("");
-
-	const startPrefixErrorMessage = "Failed to get item";
-
-	const handleSearch = () => {
-		if (searchInput === "") {
-			return;
-		}
-		switch (selectedValue) {
-			case "id":
-				{
-					handleIdSearch();
-				}
-				break;
-			case "category":
-				{
-					handleCategorySearch();
-				}
-				break;
-			case "name": {
-				handleNameSearch();
-			}
-		}
-	};
-
-	const handleIdSearch = () => {
-		fetch(`${DOMAIN_HOST}/api/inventory/${searchInput}`)
-			.then((response) => {
-				if (response.ok) {
-					return response.json();
-				} else {
-					setErrorMessage(`${startPrefixErrorMessage} by id : ${searchInput}`);
-				}
-			})
-			.then((data) => {
-				if (data === undefined || data === null) {
-					setErrorMessage(`${startPrefixErrorMessage} by id : ${searchInput}`);
-					return;
-				}
-				const arr = [];
-				arr.push(data);
-
-				setInventory(arr);
-			})
-			.catch((err) => {
-				setErrorMessage(`${startPrefixErrorMessage} by id : ${searchInput}`);
-			});
-	};
-
-	const handleNameSearch = () => {
-		fetch(`${DOMAIN_HOST}/api/inventory/name/${searchInput}`)
-			.then((response) => {
-				if (response.ok) {
-					return response.json();
-				} else {
-					setErrorMessage(`${startPrefixErrorMessage} by name : ${searchInput}`);
-				}
-			})
-			.then((data) => {
-				if (data == null || data == undefined) {
-					setErrorMessage(`${startPrefixErrorMessage} by name : ${searchInput}`);
-					return;
-				}
-				setInventory(data);
-				setErrorMessage("");
-			})
-			.catch((err) => {
-				setErrorMessage(`${startPrefixErrorMessage} by name : ${searchInput}`);
-			});
-	};
-
-	const handleCategorySearch = () => {
-		fetch(`${DOMAIN_HOST}/api/inventory/category/${searchInput}`)
-			.then((response) => {
-				if (response.ok) {
-					return response.json();
-				} else {
-					setErrorMessage(`${startPrefixErrorMessage} by category : ${searchInput}`);
-				}
-			})
-			.then((data) => {
-				if (data == null || data == undefined) {
-					setErrorMessage(`${startPrefixErrorMessage} by category : ${searchInput}`);
-					return;
-				}
-				setInventory(data);
-				setErrorMessage("");
-			})
-			.catch((err) => {
-				setErrorMessage(`${startPrefixErrorMessage} by category : ${searchInput}`);
-			});
-	};
 
 	// -------------- getting the inventory items ------------
 	const handleGetInventory = (e) => {
@@ -143,11 +46,12 @@ const ReadScreen = () => {
 	return (
 		<ScreenContainer>
 			<div className="flex m-1">
-				<SearchBar
-					onChange={handleSearchInput}
-					value={searchInput}
-					handleSearch={handleSearch}
+				<SearchScreen
+					setErrorMessage={setErrorMessage}
+					selectedValue={selectedValue}
+					setInventory={setInventory}
 				/>
+
 				<DropdownButton
 					id={"type"}
 					name={"type"}
