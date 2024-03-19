@@ -1,14 +1,12 @@
 const Button = ({ text, onClick }) => {
 	return (
-		<div className="flex flex-1 justify-center">
-			<button
-				className="font-bold py-2 px-4 rounded-sm  active:scale-75 transition-all"
-				onClick={onClick}
-				type="button"
-			>
-				{text}
-			</button>
-		</div>
+		<button
+			className={` hover:border-l-2 text-black font-bold py-2 px-4 rounded-md transition-colors duration-300`}
+			onClick={onClick}
+			type="button"
+		>
+			{text}
+		</button>
 	);
 };
 export default Button;
