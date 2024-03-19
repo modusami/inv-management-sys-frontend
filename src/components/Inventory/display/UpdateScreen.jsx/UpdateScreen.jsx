@@ -27,7 +27,7 @@ const UpdateScreen = () => {
 
 	return (
 		<ScreenContainer>
-			<div className="flex m-1">
+			<div className="flex items-center gap-4 p-4">
 				<SearchScreen
 					setErrorMessage={setErrorMessage}
 					selectedValue={selectedValue}
@@ -41,24 +41,27 @@ const UpdateScreen = () => {
 					setSelectedValue={setSelectedValue}
 				/>
 			</div>
-			<p className="text-red-500">{errorMessage}</p>
-
-			<div className="overflow-x-auto whitespace-pre-wrap rounded-lg p-2.5 bg-slate-100">
-				{inventory.map((value) => (
-					<div key={value.id.id}>
-						<Product inventoryData={value} editable={true} onSave={handleSaveChange} />
-					</div>
-				))}
+			<p className="text-red-500 text-sm p-4">{errorMessage}</p>
+			<div className="p-4 bg-gray-100 rounded-lg">
+				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+					{inventory.map((value) => (
+						<div key={value.id.id} className="bg-white rounded-lg shadow-md p-4">
+							<Product
+								inventoryData={value}
+								editable={true}
+								onSave={handleSaveChange}
+							/>
+						</div>
+					))}
+				</div>
 			</div>
-			<div className="my-3 mx-2">
-				<p>
-					Status:
+			<div className="p-4">
+				<p className="text-sm">
+					Status:{" "}
 					<span
-						className={
-							"ml-5 font-bold " +
-							(updatedMessage === "updated..." ? "text-green-300" : "text-red-400")
-						}
-						style={{ display: "inline-block" }} // Set display to inline-block
+						className={`ml-2 font-bold ${
+							updatedMessage === "updated..." ? "text-green-500" : "text-red-500"
+						}`}
 					>
 						{updatedMessage}
 					</span>

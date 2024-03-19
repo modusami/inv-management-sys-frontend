@@ -45,13 +45,12 @@ const ReadScreen = () => {
 
 	return (
 		<ScreenContainer>
-			<div className="flex m-1">
+			<div className="flex items-center gap-4 p-4">
 				<SearchScreen
 					setErrorMessage={setErrorMessage}
 					selectedValue={selectedValue}
 					setInventory={setInventory}
 				/>
-
 				<DropdownButton
 					id={"type"}
 					name={"type"}
@@ -60,20 +59,26 @@ const ReadScreen = () => {
 					setSelectedValue={setSelectedValue}
 				/>
 			</div>
-			<div className="my-3 mx-2">
-				<p className="text-red-500">{errorMessage}</p>
+			<div className="p-4">
+				<p className="text-red-500 text-sm">{errorMessage}</p>
 			</div>
-			<div className="flex m-1 bg-slate-100">
-				<Button text={"All Items"} onClick={handleGetInventory} />
+			<div className="p-4">
+				<Button
+					text={"All Items"}
+					onClick={handleGetInventory}
+					className="bg-gray-200 text-gray-800 py-2 px-4 rounded-md hover:bg-gray-300 transition-colors duration-300"
+				/>
 			</div>
-
-			<div className="overflow-x-auto whitespace-pre-wrap rounded-lg p-2.5 bg-slate-100">
-				{inventory &&
-					inventory.map((value) => (
-						<div key={value.id.id}>
-							<Product inventoryData={value} editable={false} />
-						</div>
-					))}
+			<div className="p-4 bg-gray-100 rounded-lg">
+				{inventory && (
+					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+						{inventory.map((value) => (
+							<div key={value.id.id} className="bg-white rounded-lg shadow-md p-4">
+								<Product inventoryData={value} editable={false} />
+							</div>
+						))}
+					</div>
+				)}
 			</div>
 		</ScreenContainer>
 	);

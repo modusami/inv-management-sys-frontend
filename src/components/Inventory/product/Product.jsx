@@ -26,55 +26,61 @@ const Product = ({ inventoryData, editable, onSave }) => {
 	return (
 		<div>
 			{inventoryData && inventoryData.id && inventoryData.product && (
-				<div className="bg-white p-3 rounded-lg m-5 w-full">
+				<div className="bg-white rounded-lg shadow-md p-6 m-5">
 					<div onClick={handleShowDetails} className="cursor-pointer w-full">
-						<h3 className="font-bold">ID: {inventoryData.id.id}</h3>
-						<h3 className="font-bold">Product Name: {inventoryData.product.name}</h3>
+						<h3 className="">
+							<span className="text-lg font-semibold mr-1">ID:</span>{" "}
+							{inventoryData.id.id}
+						</h3>
+						<h3 className="">
+							<span className="text-md font-semibold mr-1">Item Name:</span>
+							{inventoryData.product.name}
+						</h3>
 					</div>
 					{showDetails && (
-						<div className="m-3 w-full">
-							<p className="flex gap-2">
-								Category:{" "}
+						<div className="mt-4">
+							<div className="flex gap-2 items-center mb-2">
+								<span className="font-semibold">Category:</span>
 								{editable ? (
 									<input
 										type="text"
 										value={editedInventory.product.category}
 										onChange={(e) => handleChange(e, "category")}
-										className="w-full"
+										className="w-full px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
 									/>
 								) : (
 									inventoryData.product.category
 								)}
-							</p>
-							<p className="flex gap-2">
-								Description:{" "}
+							</div>
+							<div className="flex gap-2 items-center mb-2">
+								<span className="font-semibold">Description:</span>
 								{editable ? (
 									<input
 										type="text"
 										value={editedInventory.product.description}
 										onChange={(e) => handleChange(e, "description")}
-										className="w-full"
+										className="w-full px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
 									/>
 								) : (
 									inventoryData.product.description
 								)}
-							</p>
-							<p className="flex gap-2">
-								Price:{" "}
+							</div>
+							<div className="flex gap-2 items-center mb-4">
+								<span className="font-semibold">Price:</span>
 								{editable ? (
 									<input
 										type="number"
 										value={editedInventory.product.price}
 										onChange={(e) => handleChange(e, "price")}
-										className="w-full"
+										className="w-full px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
 									/>
 								) : (
 									inventoryData.product.price
 								)}
-							</p>
+							</div>
 							{editable && (
 								<button
-									className="bg-lime-700 text-white rounded-lg p-3 my-3"
+									className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors duration-300"
 									onClick={handleSubmit}
 								>
 									Submit Change

@@ -16,7 +16,7 @@ function App() {
 	};
 
 	return (
-		<>
+		<div className="w-lg-[75%] w-md-[90%] w-sm-[100%] mx-auto">
 			<div className="flex py-2 px-2">
 				<PageHeader />
 				<div className="flex w-full gap-5 justify-center my-3">
@@ -35,7 +35,7 @@ function App() {
 					<h1 className="text-center font-bold text-lg">Coming Soon</h1>
 				)}
 			</Canvas>
-		</>
+		</div>
 	);
 }
 
