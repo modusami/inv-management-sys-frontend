@@ -50,87 +50,91 @@ const CreateScreen = () => {
 	};
 
 	return (
-		<ScreenContainer>
-			<form onSubmit={handleSubmit}>
-				<div className="mb-4">
-					<label htmlFor="name" className="block text-sm font-medium text-gray-700">
-						Name
-					</label>
-					<input
-						type="text"
-						id="name"
-						name="name"
-						value={formData.name}
-						onChange={handleChange}
-						className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
-					/>
-				</div>
-				<div className="mb-4">
-					<label htmlFor="category" className="block text-sm font-medium text-gray-700">
-						Category
-					</label>
-					<input
-						type="text"
-						id="category"
-						name="category"
-						value={formData.category}
-						onChange={handleChange}
-						className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
-					/>
-				</div>
-				<div className="mb-4">
-					<label
-						htmlFor="description"
-						className="block text-sm font-medium text-gray-700"
+		<div className="flex justify-center items-center h-screen">
+			<div className="max-w-md w-full bg-white rounded-lg shadow-lg px-8 py-6">
+				<form onSubmit={handleSubmit} className="space-y-6">
+					<div>
+						<label htmlFor="name" className="block text-sm font-medium text-gray-700">
+							Name
+						</label>
+						<input
+							type="text"
+							id="name"
+							name="name"
+							value={formData.name}
+							onChange={handleChange}
+							className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+						/>
+					</div>
+					<div>
+						<label
+							htmlFor="category"
+							className="block text-sm font-medium text-gray-700"
+						>
+							Category
+						</label>
+						<input
+							type="text"
+							id="category"
+							name="category"
+							value={formData.category}
+							onChange={handleChange}
+							className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+						/>
+					</div>
+					<div>
+						<label
+							htmlFor="description"
+							className="block text-sm font-medium text-gray-700"
+						>
+							Description
+						</label>
+						<textarea
+							id="description"
+							name="description"
+							value={formData.description}
+							onChange={handleChange}
+							className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+						/>
+					</div>
+					<div>
+						<label htmlFor="price" className="block text-sm font-medium text-gray-700">
+							Price
+						</label>
+						<input
+							type="text"
+							id="price"
+							name="price"
+							value={formData.price}
+							onChange={handleChange}
+							className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+						/>
+					</div>
+					<button
+						type="submit"
+						className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
 					>
-						Description
-					</label>
-					<textarea
-						id="description"
-						name="description"
-						value={formData.description}
-						onChange={handleChange}
-						className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
-					></textarea>
-				</div>
-				<div className="mb-4">
-					<label htmlFor="price" className="block text-sm font-medium text-gray-700">
-						Price
-					</label>
-					<input
-						type="text"
-						id="price"
-						name="price"
-						value={formData.price}
-						onChange={handleChange}
-						className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
-					/>
-				</div>
-				<button
-					type="submit"
-					className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
-				>
-					Create Item
-				</button>
-				<p className="my-3 font-bold">
-					Status of creation:{" "}
-					<span
-						className={
-							"mx-2 " +
-							(message === "success"
-								? "text-green-500"
-								: message === "pending..."
-								? "text-slate-400"
-								: message === "failed"
-								? "text-red-500"
-								: "")
-						}
-					>
-						{message}
-					</span>
-				</p>
-			</form>
-		</ScreenContainer>
+						Create Item
+					</button>
+					<p className="text-center font-bold">
+						Status of creation:{" "}
+						<span
+							className={`mx-2 ${
+								message === "success"
+									? "text-green-500"
+									: message === "pending..."
+									? "text-slate-400"
+									: message === "failed"
+									? "text-red-500"
+									: ""
+							}`}
+						>
+							{message}
+						</span>
+					</p>
+				</form>
+			</div>
+		</div>
 	);
 };
 
