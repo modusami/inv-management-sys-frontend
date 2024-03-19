@@ -50,8 +50,8 @@ const CreateScreen = () => {
 	};
 
 	return (
-		<div className="flex justify-center items-center h-screen">
-			<div className="max-w-md w-full bg-white rounded-lg shadow-lg px-8 py-6">
+		<div className="">
+			<div className="max-w-full w-full bg-white rounded-lg shadow-lg px-8 py-6">
 				<form onSubmit={handleSubmit} className="space-y-6">
 					<div>
 						<label htmlFor="name" className="block text-sm font-medium text-gray-700">
