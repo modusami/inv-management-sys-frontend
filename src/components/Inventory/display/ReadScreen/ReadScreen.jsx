@@ -8,8 +8,6 @@ import Product from "../../product/Product";
 const DOMAIN_HOST = import.meta.env.VITE_DOMAIN_HOST;
 
 const ReadScreen = () => {
-	// for the dropdown or select
-
 	const options = ["id", "name", "category"];
 	const [selectedValue, setSelectedValue] = useState(options[0]);
 
@@ -21,6 +19,8 @@ const ReadScreen = () => {
 
 	const [inventory, setInventory] = useState([]);
 	const [errorMessage, setErrorMessage] = useState("");
+
+	const startPrefixErrorMessage = "Failed to get item";
 
 	const handleSearch = () => {
 		if (searchInput === "") {
@@ -49,12 +49,12 @@ const ReadScreen = () => {
 				if (response.ok) {
 					return response.json();
 				} else {
-					setErrorMessage(`Failed to get product with id: ${searchInput}`);
+					setErrorMessage(`${startPrefixErrorMessage} by id : ${searchInput}`);
 				}
 			})
 			.then((data) => {
 				if (data === undefined || data === null) {
-					setErrorMessage(`Failed to get product with id: ${searchInput}`);
+					setErrorMessage(`${startPrefixErrorMessage} by id : ${searchInput}`);
 					return;
 				}
 				const arr = [];
@@ -63,8 +63,7 @@ const ReadScreen = () => {
 				setInventory(arr);
 			})
 			.catch((err) => {
-				console.log(err);
-				setErrorMessage(err);
+				setErrorMessage(`${startPrefixErrorMessage} by id : ${searchInput}`);
 			});
 	};
 
@@ -74,15 +73,19 @@ const ReadScreen = () => {
 				if (response.ok) {
 					return response.json();
 				} else {
-					setErrorMessage(`Failed to get product with name: ${searchInput}`);
+					setErrorMessage(`${startPrefixErrorMessage} by name : ${searchInput}`);
 				}
 			})
 			.then((data) => {
+				if (data == null || data == undefined) {
+					setErrorMessage(`${startPrefixErrorMessage} by name : ${searchInput}`);
+					return;
+				}
 				setInventory(data);
 				setErrorMessage("");
 			})
 			.catch((err) => {
-				setErrorMessage(`Failed to get product with name: ${searchInput}`);
+				setErrorMessage(`${startPrefixErrorMessage} by name : ${searchInput}`);
 			});
 	};
 
@@ -92,15 +95,19 @@ const ReadScreen = () => {
 				if (response.ok) {
 					return response.json();
 				} else {
-					setErrorMessage(`Failed to get product with category: ${searchInput}`);
+					setErrorMessage(`${startPrefixErrorMessage} by category : ${searchInput}`);
 				}
 			})
 			.then((data) => {
+				if (data == null || data == undefined) {
+					setErrorMessage(`${startPrefixErrorMessage} by category : ${searchInput}`);
+					return;
+				}
 				setInventory(data);
 				setErrorMessage("");
 			})
 			.catch((err) => {
-				setErrorMessage(`Failed to get product with category: ${searchInput}`);
+				setErrorMessage(`${startPrefixErrorMessage} by category : ${searchInput}`);
 			});
 	};
 
@@ -149,21 +156,20 @@ const ReadScreen = () => {
 					setSelectedValue={setSelectedValue}
 				/>
 			</div>
-
+			<div className="my-3 mx-2">
+				<p className="text-red-500">{errorMessage}</p>
+			</div>
 			<div className="flex m-1 bg-slate-100">
 				<Button text={"All Items"} onClick={handleGetInventory} />
 			</div>
-			<p className="text-slate-400">Display Area: </p>
-			<pre className="overflow-x-auto whitespace-pre-wrap rounded-lg p-2.5 bg-slate-100">
+
+			<div className="overflow-x-auto whitespace-pre-wrap rounded-lg p-2.5 bg-slate-100">
 				{inventory &&
 					inventory.map((value) => (
 						<div key={value.id.id}>
-							<Product inventoryData={value} />
+							<Product inventoryData={value} editable={false} />
 						</div>
 					))}
-			</pre>
-			<div className="my-3 mx-2">
-				<p className="text-red-500">{errorMessage}</p>
 			</div>
 		</ScreenContainer>
 	);
