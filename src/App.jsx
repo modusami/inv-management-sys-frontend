@@ -16,10 +16,10 @@ function App() {
 	};
 
 	return (
-		<div className="w-lg-[75%] w-md-[90%] w-sm-[100%] mx-auto">
-			<div className="flex py-2 px-2">
+		<div className="max-w-screen-lg mx-auto w-full md:w-[90%] sm:w-full">
+			<div className="py-2 px-2 w-[70%] mx-auto">
 				<PageHeader />
-				<div className="flex w-full gap-5 justify-center my-3">
+				<div className="flex justify-center gap-4 my-3">
 					<Button text={"Create"} onClick={handleScreen} />
 					<Button text={"Read"} onClick={handleScreen} />
 					<Button text={"Update"} onClick={handleScreen} />
@@ -28,10 +28,10 @@ function App() {
 			</div>
 
 			<Canvas>
-				{contentType == "create" && <CreateScreen />}
-				{contentType == "read" && <ReadScreen />}
-				{contentType == "update" && <UpdateScreen />}
-				{contentType == "delete" && (
+				{contentType === "create" && <CreateScreen />}
+				{contentType === "read" && <ReadScreen />}
+				{contentType === "update" && <UpdateScreen />}
+				{contentType === "delete" && (
 					<h1 className="text-center font-bold text-lg">Coming Soon</h1>
 				)}
 			</Canvas>
