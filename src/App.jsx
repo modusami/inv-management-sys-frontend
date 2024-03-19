@@ -5,6 +5,7 @@ import Button from "./components/Inventory/buttons/Button";
 import ReadScreen from "./components/Inventory/display/ReadScreen/ReadScreen";
 import CreateScreen from "./components/Inventory/display/CreateScreen/CreateScreen";
 import PageHeader from "./components/Headers/PageHeader";
+import UpdateScreen from "./components/Inventory/display/UpdateScreen.jsx/UpdateScreen";
 
 function App() {
 	const [contentType, setContentType] = useState("create");
@@ -29,7 +30,7 @@ function App() {
 			<Canvas>
 				{contentType == "create" && <CreateScreen />}
 				{contentType == "read" && <ReadScreen />}
-				{/* add update and deleting screens */}
+				{contentType == "update" && <UpdateScreen />}
 			</Canvas>
 		</>
 	);
